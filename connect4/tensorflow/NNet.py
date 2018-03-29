@@ -32,6 +32,7 @@ class NNetWrapper(NeuralNet):
 
         self.sess = tf.Session(graph=self.nnet.graph)
         self.saver = None
+        # TODO(rodo): Should start with previous net weights if possble?
         with tf.Session() as temp_sess:
             temp_sess.run(tf.global_variables_initializer())
         self.sess.run(tf.variables_initializer(self.nnet.graph.get_collection('variables')))

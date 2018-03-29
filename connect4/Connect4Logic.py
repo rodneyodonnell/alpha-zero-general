@@ -76,5 +76,13 @@ class Board():
                        for i in range(len(player_pieces) - self.win_length + 2)]
         return max([x.max() for x in run_lengths]) >= self.win_length
 
-    def __str__(self):
-        return str(self.np_pieces)
+    def __str__(self, c1='X', c2='O', empty='.'):
+        def display(x):
+            if x == 1: return c1
+            if x == -1: return c2
+            if x == 0: return empty
+            raise ValueError('Unknown val %s in %s', x, self.np_pieces)
+
+        def make_row(row):
+            return ''.join(display(x) for x in row)
+        return '\n'.join(make_row(row) for row in self.np_pieces)

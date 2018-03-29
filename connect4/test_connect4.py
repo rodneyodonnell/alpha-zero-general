@@ -32,12 +32,12 @@ def init_board_from_array(board, player):
 def test_simple_moves():
     board, player, game = init_board_from_moves([4, 5, 4, 3, 0, 6])
     expected = textwrap.dedent("""\
-        [[ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  1.  0.  0.]
-         [ 1.  0.  0. -1.  1. -1. -1.]]""")
+        .......
+        .......
+        .......
+        .......
+        ....X..
+        X..OXOO""")
     assert expected == game.stringRepresentation(board)
 
 
@@ -77,21 +77,21 @@ def test_symmetries():
     assert pi == pi1 and pi == pi2
 
     expected_board1 = textwrap.dedent("""\
-        [[ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0.  0.]
-         [-1.  0.  0.  0.  0.  0.  0.]
-         [-1.  0.  0.  0.  0.  0.  0.]
-         [ 1.  1.  0.  0.  0.  0.  1.]]""")
+         .......
+         .......
+         .......
+         O......
+         O......
+         XX....X""")
     assert expected_board1 == game.stringRepresentation(board1)
 
     expected_board2 = textwrap.dedent("""\
-        [[ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0.  0.]
-         [ 0.  0.  0.  0.  0.  0. -1.]
-         [ 0.  0.  0.  0.  0.  0. -1.]
-         [ 1.  0.  0.  0.  0.  1.  1.]]""")
+        .......
+        .......
+        .......
+        ......O
+        ......O
+        X....XX""")
     assert expected_board2 == game.stringRepresentation(board2)
 
 
@@ -162,7 +162,7 @@ def test_immutable_move():
     board, player, game = init_board_from_moves([1, 2, 3, 3, 4])
     original_board_string = game.stringRepresentation(board)
 
-    new_np_pieces, new_player = game.getNextState(board, 3, -1)
+    new_np_pieces, new_player = game.getNextState(board, -1, 3)
 
     assert original_board_string == game.stringRepresentation(board)
     assert original_board_string != game.stringRepresentation(new_np_pieces)

@@ -34,6 +34,9 @@ class MCTS():
         s = self.game.stringRepresentation(canonicalBoard)
         counts = [self.Nsa[(s,a)] if (s,a) in self.Nsa else 0 for a in range(self.game.getActionSize())]
 
+        # Useful for debugging, not actually use anywhere here.
+        vals = [self.Qsa[(s,a)] if (s,a) in self.Qsa else 0 for a in range(self.game.getActionSize())]
+
         if temp==0:
             bestA = np.argmax(counts)
             probs = [0]*len(counts)
@@ -43,7 +46,6 @@ class MCTS():
         counts = [x**(1./temp) for x in counts]
         probs = [x/float(sum(counts)) for x in counts]
         return probs
-
 
     def search(self, canonicalBoard):
         """
@@ -69,7 +71,7 @@ class MCTS():
 
         if s not in self.Es:
             self.Es[s] = self.game.getGameEnded(canonicalBoard, 1)
-        if self.Es[s]!=0:
+        if self.Es[s] != 0:
             # terminal node
             return -self.Es[s]
 
@@ -83,9 +85,9 @@ class MCTS():
                 self.Ps[s] /= sum_Ps_s    # renormalize
             else:
                 # if all valid moves were masked make all valid moves equally probable
-                
+
                 # NB! All valid moves may be masked if either your NNet architecture is insufficient or you've get overfitting or something else.
-                # If you have got dozens or hundreds of these messages you should pay attention to your NNet and/or training process.   
+                # If you have got dozens or hundreds of these messages you should pay attention to your NNet and/or training process.
                 print("All valid moves were masked, do workaround.")
                 self.Ps[s] = self.Ps[s] + valids
                 self.Ps[s] /= np.sum(self.Ps[s])
