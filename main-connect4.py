@@ -25,6 +25,7 @@ args = dotdict({
     'load_model': True,
     # 'load_folder_file': ('checkpoint/eps-100_mstc-100', 'checkpoint_3.pth.tar'),
     'numItersForTrainExamplesHistory': 20,
+    'start_iter': 1,
 })
 
 args.checkpoint = "checkpoint/eps-%d_mstc-%d" % (args.numEps, args.numMCTSSims)
@@ -32,6 +33,7 @@ if args.load_model:
     for i in range(args.numIters, 0, -1):
         if isfile('%s/checkpoint_%s.pth.tar.index' % (args.checkpoint, i)):
             args.load_folder_file = (args.checkpoint, 'checkpoint_%s.pth.tar' % i)
+            args.start_iter = i
             break
     else:
         print('No previous model found, setting load_model=False')
