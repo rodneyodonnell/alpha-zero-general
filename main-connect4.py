@@ -12,8 +12,8 @@ args = dotdict({
     'updateThreshold': 0.6,
     'maxlenOfQueue': 200000,
     # 'numMCTSSims': 350,  # ~7^3, roughly 3 ply lookahead. ... how many iterations until a win/loss?
-    'numMCTSSims': 800,   # 800 MctS sims used in paper (Silver 2017a)
-    # 'numMCTSSims': 100,
+    # 'numMCTSSims': 800,   # 800 MctS sims used in paper (Silver 2017a)
+    'numMCTSSims': 100,
     # 'numMCTSSims': 10,
     # 'numMCTSSims': 25,
     'arenaCompare': 2,

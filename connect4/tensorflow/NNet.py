@@ -114,7 +114,8 @@ class NNetWrapper(NeuralNet):
         else:
             print("Checkpoint Directory exists! ")
         if self.saver == None:
-            self.saver = tf.train.Saver(self.nnet.graph.get_collection('variables'))
+            # Save all checkpoints for later analysis.
+            self.saver = tf.train.Saver(self.nnet.graph.get_collection('variables'), max_to_keep=None)
         with self.nnet.graph.as_default():
             self.saver.save(self.sess, filepath)
 

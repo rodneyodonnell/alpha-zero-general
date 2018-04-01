@@ -73,7 +73,7 @@ class Coach():
 
         for i in range(self.args.start_iter, self.args.numIters + 1):
             # bookkeeping
-            print('------ITER ' + str(i) + '------')
+            print('------ITER ' + str(i) + '------ ' + time.ctime())
             # examples of the iteration
             if not self.skipFirstSelfPlay or i > 1:
                 iterationTrainExamples = deque([], maxlen=self.args.maxlenOfQueue)
