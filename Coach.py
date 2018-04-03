@@ -75,7 +75,7 @@ class Coach():
             # bookkeeping
             print('------ITER ' + str(i) + '------ ' + time.ctime())
             # examples of the iteration
-            if not self.skipFirstSelfPlay or i > 1:
+            if not self.skipFirstSelfPlay or i > self.args.start_iter:
                 iterationTrainExamples = deque([], maxlen=self.args.maxlenOfQueue)
 
                 eps_time = AverageMeter()

@@ -28,10 +28,10 @@ args = dotdict({
     'start_iter': 1,
 })
 
-args.checkpoint = "checkpoint/eps-%d_mstc-%d" % (args.numEps, args.numMCTSSims)
+args.checkpoint = "checkpoint/eps-%d_mcts-%d" % (args.numEps, args.numMCTSSims)
 if args.load_model:
     for i in range(args.numIters, 0, -1):
-        if isfile('%s/checkpoint_%s.pth.tar.index' % (args.checkpoint, i)):
+        if isfile('%s/checkpoint_%s.pth.tar.index' % (args.checkpoint, i)) and isfile('%s/checkpoint_%s.pth.tar.examples' % (args.checkpoint, i)):
             args.load_folder_file = (args.checkpoint, 'checkpoint_%s.pth.tar' % i)
             args.start_iter = i
             break
