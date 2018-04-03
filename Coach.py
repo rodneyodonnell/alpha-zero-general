@@ -60,7 +60,8 @@ class Coach():
 
             if r!=0:
                 # TODO(rodo): I thought we should only add one new training sample chosen randomly for each game??
-                return [(x[0],x[2],r*((-1)**(x[1]!=self.curPlayer))) for x in trainExamples]
+                ret = [(x[0],x[2],r*((-1)**(x[1]!=self.curPlayer))) for x in trainExamples]
+                return ret
 
     def learn(self):
         """
