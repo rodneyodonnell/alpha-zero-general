@@ -95,6 +95,7 @@ def test_symmetries():
     assert expected_board2 == game.stringRepresentation(board2)
 
 
+# TODO(rodo): Function not actually called!! Repeated test names. 
 def test_game_ended():
     """Tests game end detection logic based on fixed boards."""
     array_end_state_pairs = [
