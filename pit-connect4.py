@@ -70,8 +70,12 @@ def nn_checkpoint_player(checkpoint, numMCTSSims=20, train_eps=10, train_mcts=10
 # arena = Arena.Arena(rp, nn_checkpoint_player(8, numMCTSSims=2, train_eps=100, train_mcts=100), g, display=display)  # (6, 14, 0)
 # arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=50), nn_checkpoint_player(10, numMCTSSims=50, train_eps=100, train_mcts=100), g, display=display)  # (9, 8, 3)
 # arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=50), nn_checkpoint_player(12, numMCTSSims=50, train_eps=100, train_mcts=100), g, display=display)  # (9, 9, 2)
-arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=50), nn_checkpoint_player(17, numMCTSSims=50, train_eps=100, train_mcts=100), g, display=display)  #
+# arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=50), nn_checkpoint_player(17, numMCTSSims=50, train_eps=100, train_mcts=100), g, display=display)  #
 # arena = Arena.Arena(rp, nn_checkpoint_player(1, numMCTSSims=2), g, display=display)  # (3, 17, 0)
+
+## With bugfix, maybe it works now?
+# arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=50, train_eps=10, train_mcts=50), nn_checkpoint_player(4, numMCTSSims=50, train_eps=10, train_mcts=50), g, display=display)  # (12, 3, 5)
+arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=50, train_eps=10, train_mcts=50), nn_checkpoint_player(7, numMCTSSims=50, train_eps=10, train_mcts=50), g, display=display)  # (11, 8, 1)
 
 print(arena.playGames(20, verbose=False))
 # print(arena.playGames(2, verbose=True))
