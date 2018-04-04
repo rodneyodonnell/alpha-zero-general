@@ -12,7 +12,8 @@ args = dotdict({
     'updateThreshold': 0.6,
     'maxlenOfQueue': 200000,
     # 'numMCTSSims': 350,  # ~7^3, roughly 3 ply lookahead. ... how many iterations until a win/loss?
-    'numMCTSSims': 800,   # 800 MctS sims used in paper (Silver 2017a)
+    # 'numMCTSSims': 800,   # 800 MctS sims used in paper (Silver 2017a)
+    'numMCTSSims': 200,   # 200 MctS allows us to simulate ~100 EPS/hour with CPU only.
     # 'numMCTSSims': 20,
     # 'numMCTSSims': 5,
     # 'numMCTSSims': 10,
