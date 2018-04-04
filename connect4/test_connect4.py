@@ -96,39 +96,6 @@ def test_symmetries():
 
 
 def test_game_ended():
-    """Tests game end detection logic based on series of moves played."""
-    move_end_state_pairs = [
-        ([0, 1] * 3 + [0], 1),  # Vertical win col 0
-        ([6, 1] * 3 + [6], 1),  # Vertical win col 6
-        ([4, 1] * 3 + [4], 1),  # Vertical win col 4
-        ([4, 3] * 5 + [4], 1),  # Vertical win col 4 (6 in a row)
-
-        ([4, 3] + [4, 1] * 2, 0),  # No Winner
-
-        # -1 has 4 in a row, but it's player 1's turn. We don't treat this as a win.
-        ([6, 4, 3, 4, 3, 4, 3, 4], -1),        # Win for player -1
-        ([6, 4, 3, 4, 3, 4, 3, 4, 6], 0),      # Invalid state, not counted as a win for -1 as you can only win on your turn.
-        ([6, 4, 3, 4, 3, 4, 3, 4, 6, 6], -1),  # -1 wins, even based on an earlier move.
-
-        # Horizontal win.
-        ([0, 0, 1, 1, 2, 2, 3], 1),  # Horizontal win on row 0
-        ([0, 0, 1, 1, 2, 2, 6, 3, 6, 3], -1),  # Horizontal win on row 1
-
-        # TODO(rodo): add more diagonal tests
-        # Diagonal win.
-        ([0, 1, 1, 2, 2, 6, 2, 3, 3, 3, 3], 1),
-        ([6, 5, 5, 4, 4, 0, 4, 3, 3, 3, 3], 1),
-    ]
-
-    for moves, expected_end_state in move_end_state_pairs:
-        board, player, game = init_board_from_moves(moves)
-
-        print('\n\n-- testing new board, player = %s--' % player)
-        # print(game.stringRepresentation(board))
-        assert expected_end_state == game.getGameEnded(board, player), ("moves=%s, board=%s" % (moves, game.stringRepresentation(board)))
-
-
-def test_game_ended():
     """Tests game end detection logic based on fixed boards."""
     array_end_state_pairs = [
         (np.array([[0, 0, 0, 0, 0, 0, 0],
@@ -146,12 +113,12 @@ def test_game_ended():
                    [0, 0, 0, 1, 0, 0, 0],
                    [0, 0, 1, 0, 0, 0, 0],
                    [0, 1, 0, 0, 0, 0, 0],
-                   [0, 0, 0, 0, 0, 0, 0]]), -1, 1),
+                   [0, 0, 0, 0, 0, 0, 0]]), -1, -1),
         (np.array([[0, 0, 0, 0, 0, 0, 0],
                    [0, 0, 1, 0, 0, 0, 0],
                    [0, 0, 0, 1, 0, 0, 0],
                    [0, 0, 0, 0, 1, 0, 0],
-                   [0, 0, 0, 0, 0, 1, 0]]), -1, 1),
+                   [0, 0, 0, 0, 0, 1, 0]]), -1, -1),
         (np.array([[0, 0, 0, -1],
                    [0, 0, -1, 0],
                    [0, -1, 0, 0],
@@ -159,12 +126,30 @@ def test_game_ended():
         (np.array([[0, 0, 0, 0, 1],
                    [0, 0, 0, 1, 0],
                    [0, 0, 1, 0, 0],
-                   [0, 1, 0, 0, 0]]), -1, 1),
+                   [0, 1, 0, 0, 0]]), -1, -1),
         (np.array([[1, 0, 0, 0, 0],
                    [0, 1, 0, 0, 0],
                    [0, 0, 1, 0, 0],
-                   [0, 0, 0, 1, 0]]), -1, 1),
-    ]
+                   [0, 0, 0, 1, 0]]), -1, -1),
+        (np.array([[ 0,  0,  0,  0,  0,  0,  0],
+                   [ 0,  0,  0, -1,  0,  0,  0],
+                   [ 0,  0,  0, -1,  0,  0,  1],
+                   [ 0,  0,  0,  1,  1, -1, -1],
+                   [ 0,  0,  0, -1,  1,  1,  1],
+                   [ 0, -1,  0, -1,  1, -1,  1]]), -1, 0),
+        (np.array([[ 0.,  0.,  0.,  0.,  0.,  0.,  0.],
+                   [ 0.,  0.,  0., -1.,  0.,  0.,  0.],
+                   [ 1.,  0.,  1., -1.,  0.,  0.,  0.],
+                   [-1., -1.,  1.,  1.,  0.,  0.,  0.],
+                   [ 1.,  1.,  1., -1.,  0.,  0.,  0.],
+                   [ 1., -1.,  1., -1.,  0., -1.,  0.]]), -1, -1),
+        (np.array([[ 0.,  0.,  0.,  1.,  0.,  0.,  0.,],
+                   [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,],
+                   [ 0.,  0.,  0., -1.,  0.,  0.,  0.,],
+                   [ 0.,  0.,  1.,  1., -1.,  0., -1.,],
+                   [ 0.,  0., -1.,  1.,  1.,  1.,  1.,],
+                   [-1.,  0., -1.,  1., -1., -1., -1.,],]), 1, 1),
+        ]
 
     for np_pieces, player, expected_end_state in array_end_state_pairs:
         board, player, game = init_board_from_array(np_pieces, player)
