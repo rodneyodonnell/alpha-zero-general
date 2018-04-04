@@ -153,6 +153,7 @@ def test_game_ended():
         ]
 
     for np_pieces, player, expected_end_state in array_end_state_pairs:
+        print('-------------------------------------')
         board, player, game = init_board_from_array(np_pieces, player)
         end_state = game.getGameEnded(board, player)
         assert expected_end_state == end_state, ("expected=%s, actual=%s, board=\n%s" % (expected_end_state, end_state, board))
