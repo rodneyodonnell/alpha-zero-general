@@ -89,10 +89,14 @@ def nn_checkpoint_player(checkpoint, numMCTSSims=20, train_eps=10, train_mcts=10
 # arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=20, train_eps=100, train_mcts=200), nn_checkpoint_player(18, numMCTSSims=20, train_eps=100, train_mcts=200), g, display=display)  # (8, 11, 1)
 # arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=20, train_eps=100, train_mcts=200), nn_checkpoint_player(20, numMCTSSims=20, train_eps=100, train_mcts=200), g, display=display)  # (8, 11, 1)
 # arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=20, train_eps=100, train_mcts=200), nn_checkpoint_player(22, numMCTSSims=20, train_eps=100, train_mcts=200), g, display=display)  # (6, 11, 3)
-arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=20, train_eps=100, train_mcts=200), nn_checkpoint_player(26, numMCTSSims=20, train_eps=100, train_mcts=200), g, display=display)  # (5, 12, 3)
+# arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=20, train_eps=100, train_mcts=200), nn_checkpoint_player(26, numMCTSSims=20, train_eps=100, train_mcts=200), g, display=display)  # (5, 12, 3)
+arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=20, train_eps=100, train_mcts=200), nn_checkpoint_player(29, numMCTSSims=20, train_eps=100, train_mcts=200), g, display=display)  # (10, 10, 0)
+
+# arena = Arena.Arena(nn_checkpoint_player(1, numMCTSSims=100, train_eps=100, train_mcts=200), nn_checkpoint_player(26, numMCTSSims=100, train_eps=100, train_mcts=200), g, display=display)  # (8, 12, 0)
 
 # arena = Arena.Arena(rp, nn_checkpoint_player(1, numMCTSSims=2, train_eps=100, train_mcts=200), g, display=display)  # (1, 19, 0)
 # arena = Arena.Arena(rp, nn_checkpoint_player(22, numMCTSSims=2, train_eps=100, train_mcts=200), g, display=display)  # (1, 19, 0)
+# arena = Arena.Arena(rp, nn_checkpoint_player(26, numMCTSSims=2, train_eps=100, train_mcts=200), g, display=display)  # (2, 18, 0)
 print(arena.playGames(20, verbose=False))
 
 # arena = Arena.Arena(hp, nn_checkpoint_player(8, numMCTSSims=20, train_eps=100, train_mcts=200), g, display=display)  # Human wins 2-0
