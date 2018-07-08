@@ -15,10 +15,11 @@ class MCTS():
         self.Nsa = {}       # stores #times edge s,a was visited
         self.Ns = {}        # stores #times board s was visited
         self.Ps = {}        # stores initial policy (returned by neural net)
+        self.Ss = {}        # stores initial value (returned by neural net)
 
         self.Es = {}        # stores game.getGameEnded ended for board s
         self.Vs = {}        # stores game.getValidMoves for board s
-
+        
     def getActionProb(self, canonicalBoard, temp=1):
         """
         This function performs numMCTSSims simulations of MCTS starting from
@@ -28,6 +29,8 @@ class MCTS():
             probs: a policy vector where the probability of the ith action is
                    proportional to Nsa[(s,a)]**(1./temp)
         """
+        pp = '\n'.join(map(str, canonicalBoard))
+
         for i in range(self.args.numMCTSSims):
             self.search(canonicalBoard)
 
@@ -75,7 +78,7 @@ class MCTS():
 
         if s not in self.Ps:
             # leaf node
-            self.Ps[s], v = self.nnet.predict(canonicalBoard)
+            self.Ps[s], self.Ss[s] = self.nnet.predict(canonicalBoard)
             valids = self.game.getValidMoves(canonicalBoard, 1)
             self.Ps[s] = self.Ps[s]*valids      # masking invalid moves
             sum_Ps_s = np.sum(self.Ps[s])
@@ -92,19 +95,20 @@ class MCTS():
 
             self.Vs[s] = valids
             self.Ns[s] = 0
-            return -v
+            return -self.Ss[s]
 
         valids = self.Vs[s]
         cur_best = -float('inf')
         best_act = -1
 
         # pick the action with the highest upper confidence bound
+        v = self.Ss[s]
         for a in range(self.game.getActionSize()):
             if valids[a]:
                 if (s,a) in self.Qsa:
                     u = self.Qsa[(s,a)] + self.args.cpuct*self.Ps[s][a]*math.sqrt(self.Ns[s])/(1+self.Nsa[(s,a)])
                 else:
-                    u = self.args.cpuct*self.Ps[s][a]*math.sqrt(self.Ns[s] + EPS)     # Q = 0 ?
+                    u = v + self.args.cpuct*self.Ps[s][a]*math.sqrt(self.Ns[s] + EPS)     # Q = 0 ?
 
                 if u > cur_best:
                     cur_best = u

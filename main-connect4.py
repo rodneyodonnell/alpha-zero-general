@@ -9,12 +9,12 @@ args = dotdict({
     'tempThreshold': 15,
     'updateThreshold': 0.6,
     'maxlenOfQueue': 200000,
-    'numMCTSSims': 49,
+    'numMCTSSims': 49 * 7,
     'arenaCompare': 20,
     'cpuct': 1,
 
     'checkpoint': './temp/',
-    'load_model': False,
+    'load_model': True,
     'load_folder_file': ('models/connect4','best.pth.tar'),
     'numItersForTrainExamplesHistory': 20,
 
